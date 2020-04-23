@@ -4,3 +4,14 @@ server:
 spring:
   application:
     name: display
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+      circuitBreaker:
+        # 테스트: 10초동안 1개의 호출이 50% 이상의 호출 에러가 뜬다면 Circuit Open
+        requestVolumeThreshold: 1 # default 20
+        errorThresholdPercentage: 50  # error percentage

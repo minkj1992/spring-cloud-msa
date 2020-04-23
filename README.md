@@ -1,4 +1,7 @@
 # Spring Cloud MSA
+## DB 분리
+- `CDC`(`Linkedin` 방식)
+  - command로 찍어내어 중앙의 `Kafka`에 기록한다.
 
 ## 12 Factors
 |#|팩터(영어)|팩터(한국어)|설명|
@@ -41,4 +44,12 @@
 
 ## [Step 2] Hystrix 사용하기
 - Display -> Product 연동 구간에 Circuit Breaker를 적용한다.
+  1. HystrixCommand 정의 하기
+  2. Fallback 정의하기
+  3. Hystrix Timeout 처리하기
+
+## Client LoadBalancer - Ribbon
+> Client side LoadBalancing 
+
+- L4(인프라팀)에 위임했던 이전과 달리 개발자 측에서 서버단에서 처리가능하다.
 

@@ -33,6 +33,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    // hystrix
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
 }
 
 dependencyManagement {
