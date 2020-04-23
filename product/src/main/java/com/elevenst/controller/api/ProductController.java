@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-    @GetMapping("/{productId}")
-    public String getProduct(@PathVariable String productId) {
+    @GetMapping(path = "{productId}")
+    public String getProductInfo(@PathVariable String productId) {
         return "[product id = " + productId +
                 " at " + System.currentTimeMillis() + "]";
-
     }
 }
