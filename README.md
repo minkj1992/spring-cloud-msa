@@ -1,13 +1,31 @@
-# Spring Cloud MSA
+# 1. Spring Cloud MSA
 > Spring-cloud(hystrix, Ribbon) + Zuul(API Gateway) 기반의 MSA 서비스
+
+<!-- TOC -->
+
+- [1. Spring Cloud MSA](#1-spring-cloud-msa)
+  - [1.1. DB 분리](#11-db-%eb%b6%84%eb%a6%ac)
+  - [1.2. Factors](#12-factors)
+  - [1.3. Spring-Cloud, Netflix OSS](#13-spring-cloud-netflix-oss)
+    - [1.3.1. Failure as a First Class Citizen](#131-failure-as-a-first-class-citizen)
+    - [1.3.2. Hystrix](#132-hystrix)
+  - [1.4. [Step 2] Hystrix 사용하기](#14-step-2-hystrix-%ec%82%ac%ec%9a%a9%ed%95%98%ea%b8%b0)
+  - [1.5. [Step 3] Client LoadBalancer - Ribbon](#15-step-3-client-loadbalancer---ribbon)
+  - [1.6. Service Registry - Eureka](#16-service-registry---eureka)
+    - [1.6.1. `Dynamic service discovery` 기초 지식](#161-dynamic-service-discovery-%ea%b8%b0%ec%b4%88-%ec%a7%80%ec%8b%9d)
+    - [1.6.2. Eureka in Spring Cloud](#162-eureka-in-spring-cloud)
+  - [Feign](#feign)
+
+<!-- /TOC -->
+
 
 - [MSA 전반적인 글](https://futurecreator.github.io/2018/09/14/what-is-microservices-architecture/)
 
-## DB 분리
+## 1.1. DB 분리
 - `CDC`(`Linkedin` 방식)
   - command로 찍어내어 중앙의 `Kafka`에 기록한다.
 
-## 12 Factors
+## 1.2. Factors
 |#|팩터(영어)|팩터(한국어)|설명|
 |--- |--- |--- |--- |
 |1|Codebase|코드베이스 |단일 코드베이스. 버전 관리되는 하나의 코드베이스와 다양한 배포. 개발/테스트/운영서버(인스턴스)는 동일한 코드 기반이어야 함|
@@ -23,15 +41,15 @@
 |11|Logs|로그 |로그를 이벤트 스트림으로 취급. 로컬서버에 저장하지 말고 중앙저장소로 수집|
 |12|Admin processes|Admin 프로세스|admin/maintenance 작업을 일회성 프로세스로 실행|
 
-## Spring-Cloud, Netflix OSS
+## 1.3. Spring-Cloud, Netflix OSS
 
 
-### Failure as a First Class Citizen
+### 1.3.1. Failure as a First Class Citizen
 - 모놀리틱은 의존성 호출 100%신뢰
 - 이에 반하여 MSA는 실패가능성이 있다.
 - 이러한 실패 또한 1급 객체로 취급해야한다.
 
-### Hystrix 
+### 1.3.2. Hystrix 
 - Circuit Breaker
 - Circuit Open
   - = Fail Fast
@@ -46,13 +64,13 @@
 ![](img/netflix-hystrix.png)
 
 
-## [Step 2] Hystrix 사용하기
+## 1.4. [Step 2] Hystrix 사용하기
 - Display -> Product 연동 구간에 Circuit Breaker를 적용한다.
   1. HystrixCommand 정의 하기
   2. Fallback 정의하기
   3. Hystrix Timeout 처리하기
 
-## [Step 3] Client LoadBalancer - Ribbon
+## 1.5. [Step 3] Client LoadBalancer - Ribbon
 > Client side LoadBalancing 
 
 - 장점: L4(인프라팀)에 위임했던 이전과 달리 개발자 측에서 서버단에서 처리가능하다.
@@ -72,11 +90,11 @@
      1. 만약 Hystrix Timeout이 발생하면 즉시 에러 반환할 것이다. 그렇게 되면 Ribbon의 RR방식의 retry를 활용하지 못한다.
          
 
-## Service Registry - Eureka
+## 1.6. Service Registry - Eureka
 > dynamic service discovery - Eureka
 
 
-### `Dynamic service discovery` 기초 지식 
+### 1.6.1. `Dynamic service discovery` 기초 지식 
 1. **The Client-Side Discovery Pattern**
   - `Netflix Eureka`: service registry
   - `Netflix Ribbon`: Eureka와 함께 동작하여 로드밸런싱된 요청(requests)을 생성
@@ -116,7 +134,7 @@ Kubernetes나 Marathon과 같은 배포환경은 클러스터내의 각 호스�
   - 로드밸런서는 배포환경에 구축되어야 한다.
   - 즉, 높은 가용성이 요구되는 시스템 컴포넌트를 설정하고 관리해야한다
 
-### Eureka in Spring Cloud
+### 1.6.2. Eureka in Spring Cloud
 - 원리
   1. 서버 시작 시 Eureka Server(Registry) 에 자동으로 자신의 상태를 등록(UP)
      - `eureka.client.register-with-eureka : true(default)`
@@ -136,3 +154,13 @@ Kubernetes나 Marathon과 같은 배포환경은 클러스터내의 각 호스�
 ![](img/eureka-3.png)
   4. Eureka 상태 확인
 ![](img/eureka-4.png)
+
+## Feign
+> Declaritive Http Client
+
+- RestTemplate은 concreate 클래스라 테스트하기 어렵다.
+- **관심사의 분리**
+- Spring Cloud에서 Open-Feign 기반으로 Wrapping한 것이 `Spring Cloud Feign`
+
+- feign 장애 대처법
+![](img/feign_장애.png)

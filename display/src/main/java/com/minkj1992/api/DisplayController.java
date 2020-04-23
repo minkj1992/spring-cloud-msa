@@ -1,5 +1,6 @@
 package com.minkj1992.api;
 
+import com.minkj1992.api.service.FeignProductRemoteService;
 import com.minkj1992.api.service.ProductRemoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/displays")
 public class DisplayController {
 
-    private final ProductRemoteService productRemoteService;
+//    private final ProductRemoteService productRemoteService;
+    private final FeignProductRemoteService feignProductRemoteService;
 
     @GetMapping(path = "/{displayId}")
     public String getDisplayDetail(@PathVariable String displayId) {
@@ -21,6 +23,6 @@ public class DisplayController {
     }
 
     private String getProductInfo() {
-        return productRemoteService.getProductInfo("1111");
+        return feignProductRemoteService.getProductInfo("1111");
     }
 }
