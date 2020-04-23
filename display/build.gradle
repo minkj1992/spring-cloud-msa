@@ -35,6 +35,9 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
     // hystrix
     compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    // Ribbon
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
+    compile('org.springframework.retry:spring-retry:1.2.2.RELEASE')
 }
 
 dependencyManagement {

@@ -15,3 +15,9 @@ hystrix:
         # 테스트: 10초동안 1개의 호출이 50% 이상의 호출 에러가 뜬다면 Circuit Open
         requestVolumeThreshold: 1 # default 20
         errorThresholdPercentage: 50  # error percentage
+
+product:
+  ribbon:
+    listOfServers: localhost:8082, localhost:7777
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1 #ribbon은 round robin형식으로 list server를 check해본다.

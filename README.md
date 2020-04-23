@@ -48,8 +48,24 @@
   2. Fallback 정의하기
   3. Hystrix Timeout 처리하기
 
-## Client LoadBalancer - Ribbon
+## [Step 3] Client LoadBalancer - Ribbon
 > Client side LoadBalancing 
 
-- L4(인프라팀)에 위임했던 이전과 달리 개발자 측에서 서버단에서 처리가능하다.
+- 장점: L4(인프라팀)에 위임했던 이전과 달리 개발자 측에서 서버단에서 처리가능하다.
+    - Nginx와의 차이점은 무엇일까?
+- 적용 순서
+  1. 원하는 RestTemplate에 `@LoadBalanced`를 추가
+  2. ProductRemoteServiceImpl에서 주소 제거하고 `product` 로 변경
+  3. application.yml에 port 설정 추가
+     - 
+        ```yml
+            product:
+                ribbon:
+                    listOfServers: localhost:8082
+        ```
+  4. applicaiton.yml에 서버 주소 추가 및 Retry 관련 속성 조정
+  5. 주의사항: Hystrix가 ribbon을 감싼경우
+     1. 만약 Hystrix Timeout이 발생하면 즉시 에러 반환할 것이다. 그렇게 되면 Ribbon의 RR방식의 retry를 활용하지 못한다.
+         
+
 
