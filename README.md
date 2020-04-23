@@ -14,10 +14,10 @@
   - [1.6. Service Registry - Eureka](#16-service-registry---eureka)
     - [1.6.1. `Dynamic service discovery` 기초 지식](#161-dynamic-service-discovery-%ea%b8%b0%ec%b4%88-%ec%a7%80%ec%8b%9d)
     - [1.6.2. Eureka in Spring Cloud](#162-eureka-in-spring-cloud)
-  - [Feign](#feign)
+  - [1.7. Feign](#17-feign)
+  - [1.8. c.f git merge](#18-cf-git-merge)
 
 <!-- /TOC -->
-
 
 - [MSA 전반적인 글](https://futurecreator.github.io/2018/09/14/what-is-microservices-architecture/)
 
@@ -155,7 +155,7 @@ Kubernetes나 Marathon과 같은 배포환경은 클러스터내의 각 호스�
   4. Eureka 상태 확인
 ![](img/eureka-4.png)
 
-## Feign
+## 1.7. Feign
 > Declaritive Http Client
 
 - RestTemplate은 concreate 클래스라 테스트하기 어렵다.
@@ -164,3 +164,14 @@ Kubernetes나 Marathon과 같은 배포환경은 클러스터내의 각 호스�
 
 - feign 장애 대처법
 ![](img/feign_장애.png)
+
+
+## 1.8. c.f git merge
+> https://stackoverflow.com/questions/2763006/make-the-current-git-branch-a-master-branch
+```bash
+git checkout better_branch
+git merge --strategy=ours master    # keep the content of this branch, but record a merge
+git checkout master
+git merge better_branch  
+```
+
