@@ -4,3 +4,10 @@ server:
 spring:
   application:
     name: product
+
+eureka:
+  instance:
+    prefer-ip-address: true # eureka Server에 IP로 서비스를 등록하겠다(local 환경이니 이렇게 한다.)
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka  # default address

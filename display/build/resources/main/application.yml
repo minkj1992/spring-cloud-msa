@@ -18,6 +18,12 @@ hystrix:
 
 product:
   ribbon:
-    listOfServers: localhost:8082, localhost:7777
     MaxAutoRetries: 0
-    MaxAutoRetriesNextServer: 1
+    MaxAutoRetriesNextServer: 1 #ribbon은 round robin형식으로 list server를 check해본다.
+
+eureka:
+  instance:
+    prefer-ip-address: true # eureka Server에 IP로 서비스를 등록하겠다(local 환경이니 이렇게 한다.)
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka  # default address

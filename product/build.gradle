@@ -17,7 +17,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.elevenst'
+group = 'com.minkj1992'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -33,6 +33,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    // eureka
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client') // 3. To use Eureka client
 }
 
 dependencyManagement {
